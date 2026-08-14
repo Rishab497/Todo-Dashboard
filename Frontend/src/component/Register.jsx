@@ -33,6 +33,11 @@ function Register() {
             navigate("/login");
 
         } catch (error) {
+            console.log(
+                "REGISTER ERROR:",
+                error.response?.data
+            );
+
             setError(
                 error.response?.data?.message ||
                 "Registration failed"
@@ -48,15 +53,20 @@ function Register() {
 
             <div className="auth-form">
 
+                <div className="terminal-label">
+                    &gt; TODO//SYSTEM
+                </div>
+
                 <h2>CREATE ACCOUNT</h2>
 
                 <p className="form-subtitle">
-                    &gt; Create a new user_
+                    &gt; Initialize new user_
                 </p>
 
                 <form onSubmit={submitData}>
 
                     <div className="input-group">
+
                         <label>NAME</label>
 
                         <input
@@ -68,9 +78,11 @@ function Register() {
                             }
                             required
                         />
+
                     </div>
 
                     <div className="input-group">
+
                         <label>EMAIL</label>
 
                         <input
@@ -82,9 +94,11 @@ function Register() {
                             }
                             required
                         />
+
                     </div>
 
                     <div className="input-group">
+
                         <label>PASSWORD</label>
 
                         <input
@@ -96,6 +110,7 @@ function Register() {
                             }
                             required
                         />
+
                     </div>
 
                     {error && (
@@ -118,6 +133,7 @@ function Register() {
 
                 <p className="auth-switch">
                     ALREADY HAVE AN ACCOUNT?{" "}
+
                     <Link to="/login">
                         LOGIN
                     </Link>

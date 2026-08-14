@@ -28,7 +28,10 @@ function Login() {
 
             console.log("LOGIN RESPONSE:", response.data);
 
-            localStorage.setItem("token", response.data.token);
+            localStorage.setItem(
+                "token",
+                response.data.token
+            );
 
             localStorage.setItem(
                 "user",
@@ -38,10 +41,14 @@ function Login() {
             navigate("/todo");
 
         } catch (error) {
-            console.log("LOGIN ERROR:", error.response?.data);
+            console.log(
+                "LOGIN ERROR:",
+                error.response?.data
+            );
 
             setError(
-                error.response?.data?.message || "Login failed"
+                error.response?.data?.message ||
+                "Login failed"
             );
 
         } finally {
@@ -54,6 +61,10 @@ function Login() {
 
             <div className="auth-form">
 
+                <div className="terminal-label">
+                    &gt; TODO//SYSTEM
+                </div>
+
                 <h2>LOGIN ACCOUNT</h2>
 
                 <p className="form-subtitle">
@@ -63,6 +74,7 @@ function Login() {
                 <form onSubmit={submitData}>
 
                     <div className="input-group">
+
                         <label>EMAIL</label>
 
                         <input
@@ -74,9 +86,11 @@ function Login() {
                             }
                             required
                         />
+
                     </div>
 
                     <div className="input-group">
+
                         <label>PASSWORD</label>
 
                         <input
@@ -88,6 +102,7 @@ function Login() {
                             }
                             required
                         />
+
                     </div>
 
                     {error && (
@@ -101,13 +116,16 @@ function Login() {
                         className="primary-button"
                         disabled={loading}
                     >
-                        {loading ? "LOGGING IN..." : "LOGIN"}
+                        {loading
+                            ? "LOGGING IN..."
+                            : "LOGIN"}
                     </button>
 
                 </form>
 
                 <p className="auth-switch">
                     DON'T HAVE AN ACCOUNT?{" "}
+
                     <Link to="/register">
                         REGISTER
                     </Link>

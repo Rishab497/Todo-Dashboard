@@ -1,43 +1,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+    margin: 0;
+
+    min-width: 320px;
+
+    min-height: 100vh;
 }
 
 body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.02) 0px,
+            rgba(255, 255, 255, 0.02) 1px,
+            transparent 1px,
+            transparent 4px
+        ),
+        #10130f;
 
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 255, 255, 0.02) 0px,
-      rgba(255, 255, 255, 0.02) 1px,
-      transparent 1px,
-      transparent 4px
-    ),
-    #10130f;
+    color: #d8ffb0;
 
-  color: #d8ffb0;
-  font-family: "VT323", monospace;
-  font-size: 20px;
+    font-family: "VT323", monospace;
+
+    font-size: 20px;
+
+    /* CRT glow */
+    text-shadow:
+        0 0 2px rgba(216, 255, 176, 0.15);
+}
+
+body::after {
+    content: "";
+
+    pointer-events: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            rgba(255, 255, 255, 0.015) 50%,
+            transparent 50%
+        );
+
+    background-size: 100% 4px;
+
+    z-index: 9999;
+
+    opacity: 0.25;
 }
 
 button,
 input {
-  font-family: "VT323", monospace;
+    font-family: "VT323", monospace;
 }
 
 button {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 a {
-  color: #ffcc66;
-  text-decoration: none;
+    color: #ffcc66;
+
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
+}
+
+::selection {
+    background: #b7ff65;
+
+    color: #10130f;
 }

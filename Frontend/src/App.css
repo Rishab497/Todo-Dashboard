@@ -1,371 +1,891 @@
-#root {
-  min-height: 100vh;
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
 }
 
-/* =========================
-   AUTH PAGES
-========================= */
+button,
+input {
+    font-family: "VT323", monospace;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+
+/* =========================================
+   COMMON
+========================================= */
+
+.terminal-label {
+    color: #ffcc66;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+}
+
+.error {
+    color: #ff8075;
+    border: 2px solid #74433f;
+    background: rgba(255, 107, 95, 0.08);
+    padding: 10px 12px;
+    margin: 15px 0;
+}
+
+
+/* =========================================
+   AUTH PAGE
+========================================= */
 
 .auth-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 20px;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(183, 255, 101, 0.05),
+            transparent 55%
+        );
 }
 
 .auth-form {
-  width: 100%;
-  max-width: 440px;
+    width: 100%;
+    max-width: 470px;
 
-  background: #171b14;
+    background: #171b14;
 
-  border: 3px solid #8fbd5a;
+    border: 3px solid #8fbd5a;
 
-  padding: 40px;
+    padding: 42px;
 
-  box-shadow:
-    8px 8px 0 #050705,
-    0 0 20px rgba(143, 189, 90, 0.15);
+    box-shadow:
+        8px 8px 0 #050705,
+        0 0 30px rgba(143, 189, 90, 0.12);
+
+    position: relative;
+}
+
+.auth-form::before {
+    content: "● ● ●";
+
+    display: block;
+
+    color: #56664a;
+
+    font-family: monospace;
+    font-size: 12px;
+
+    padding-bottom: 18px;
+    margin-bottom: 25px;
+
+    border-bottom: 2px solid #303a2a;
 }
 
 .auth-form h2 {
-  margin: 0 0 8px;
+    margin: 0 0 10px;
 
-  color: #b7ff65;
+    color: #b7ff65;
 
-  font-family: "Press Start 2P", monospace;
-  font-size: 22px;
-  line-height: 1.6;
+    font-family: "Press Start 2P", monospace;
 
-  text-shadow: 0 0 8px rgba(183, 255, 101, 0.4);
+    font-size: 20px;
+
+    line-height: 1.7;
+
+    text-shadow:
+        0 0 8px rgba(183, 255, 101, 0.4);
 }
 
 .form-subtitle {
-  margin: 0 0 30px;
+    margin: 0 0 32px;
 
-  color: #8f9d82;
+    color: #8f9d82;
 
-  font-size: 22px;
+    font-size: 22px;
 }
 
 .input-group {
-  margin-bottom: 22px;
+    margin-bottom: 22px;
 }
 
 .input-group label {
-  display: block;
-  margin-bottom: 7px;
+    display: block;
 
-  color: #b7ff65;
+    margin-bottom: 8px;
 
-  font-size: 21px;
+    color: #b7ff65;
+
+    font-size: 20px;
 }
 
 .input-group input {
-  width: 100%;
+    width: 100%;
 
-  padding: 12px 14px;
+    padding: 13px 15px;
 
-  background: #0b0e0a;
+    background: #0b0e0a;
 
-  border: 2px solid #56664a;
+    border: 2px solid #56664a;
 
-  color: #d8ffb0;
+    color: #d8ffb0;
 
-  font-size: 21px;
+    font-size: 21px;
 
-  outline: none;
+    outline: none;
+
+    transition: 0.15s;
 }
 
-.input-group input::placeholder {
-  color: #53604b;
+.input-group input:hover {
+    border-color: #8fbd5a;
 }
 
 .input-group input:focus {
-  border-color: #b7ff65;
+    border-color: #b7ff65;
 
-  box-shadow: 0 0 8px rgba(183, 255, 101, 0.25);
+    box-shadow:
+        0 0 8px rgba(183, 255, 101, 0.25);
+}
+
+.input-group input::placeholder {
+    color: #53604b;
 }
 
 .primary-button {
-  width: 100%;
+    width: 100%;
 
-  padding: 13px;
+    margin-top: 8px;
 
-  background: #b7ff65;
-  color: #10130f;
+    padding: 15px;
 
-  border: 3px solid #d7ff9f;
+    background: #b7ff65;
 
-  font-family: "Press Start 2P", monospace;
-  font-size: 13px;
+    color: #10130f;
 
-  box-shadow: 5px 5px 0 #050705;
+    border: 3px solid #d7ff9f;
 
-  transition: 0.1s;
+    font-family: "Press Start 2P", monospace;
+
+    font-size: 12px;
+
+    box-shadow: 5px 5px 0 #050705;
+
+    transition: 0.1s;
 }
 
 .primary-button:hover {
-  background: #d7ff9f;
+    background: #d7ff9f;
 }
 
 .primary-button:active {
-  transform: translate(4px, 4px);
-  box-shadow: 1px 1px 0 #050705;
+    transform: translate(4px, 4px);
+
+    box-shadow: 1px 1px 0 #050705;
 }
 
 .auth-switch {
-  margin-top: 25px;
+    margin: 28px 0 0;
 
-  text-align: center;
+    padding-top: 20px;
 
-  color: #7e8b73;
-  font-size: 20px;
+    border-top: 1px dashed #56664a;
+
+    text-align: center;
+
+    color: #7e8b73;
+
+    font-size: 20px;
 }
 
 .auth-switch a {
-  color: #ffcc66;
+    color: #ffcc66;
 }
 
-/* =========================
+.auth-switch a:hover {
+    color: #ffe29a;
+}
+
+
+/* =========================================
    TODO PAGE
-========================= */
+========================================= */
 
 .todo-page {
-  min-height: 100vh;
+    min-height: 100vh;
 
-  padding: 30px 20px;
+    padding: 35px 25px;
 }
 
 .todo-container {
-  width: 100%;
-  max-width: 850px;
+    width: 100%;
+    max-width: 1000px;
 
-  margin: 0 auto;
+    margin: 0 auto;
 }
 
+
+/* =========================================
+   HEADER
+========================================= */
+
 .todo-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
 
-  margin-bottom: 35px;
+    align-items: center;
 
-  padding-bottom: 18px;
+    justify-content: space-between;
 
-  border-bottom: 3px dashed #56664a;
+    gap: 25px;
+
+    padding: 25px 0;
+
+    margin-bottom: 25px;
+
+    border-bottom: 3px dashed #56664a;
 }
 
 .todo-header h1 {
-  margin: 0;
+    margin: 0;
 
-  color: #b7ff65;
+    color: #b7ff65;
 
-  font-family: "Press Start 2P", monospace;
-  font-size: 22px;
+    font-family: "Press Start 2P", monospace;
 
-  text-shadow: 0 0 8px rgba(183, 255, 101, 0.35);
-}
+    font-size: 24px;
 
-.logout-button {
-  padding: 8px 14px;
+    line-height: 1.6;
 
-  background: transparent;
-
-  border: 2px solid #ff6b5f;
-
-  color: #ff8075;
-
-  font-size: 18px;
-}
-
-.logout-button:hover {
-  background: #ff6b5f;
-  color: #10130f;
-}
-
-/* =========================
-   ADD TODO
-========================= */
-
-.todo-add {
-  display: flex;
-  gap: 10px;
-
-  margin-bottom: 30px;
-}
-
-.todo-add input {
-  flex: 1;
-
-  padding: 13px;
-
-  background: #0b0e0a;
-
-  border: 2px solid #56664a;
-
-  color: #d8ffb0;
-
-  font-size: 21px;
-
-  outline: none;
-}
-
-.todo-add input:focus {
-  border-color: #b7ff65;
-}
-
-.todo-add button {
-  padding: 0 22px;
-
-  background: #b7ff65;
-  color: #10130f;
-
-  border: 2px solid #d7ff9f;
-
-  font-family: "Press Start 2P", monospace;
-  font-size: 11px;
-}
-
-/* =========================
-   TODO CARDS
-========================= */
-
-.todo-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-
-  padding: 18px;
-
-  background: #171b14;
-
-  border: 2px solid #56664a;
-
-  box-shadow: 5px 5px 0 #050705;
-}
-
-.todo-item:hover {
-  border-color: #8fbd5a;
-}
-
-.todo-content {
-  flex: 1;
-}
-
-.todo-title {
-  margin: 0;
-
-  color: #d8ffb0;
-
-  font-size: 25px;
-}
-
-.todo-completed {
-  color: #6f7b68;
-  text-decoration: line-through;
+    text-shadow:
+        0 0 8px rgba(183, 255, 101, 0.35);
 }
 
 .todo-status {
-  margin-top: 4px;
+    margin: 8px 0 0;
 
-  color: #8fbd5a;
+    color: #8fbd5a;
 
-  font-size: 17px;
+    font-size: 18px;
 }
 
+.logout-button {
+    padding: 10px 18px;
+
+    background: transparent;
+
+    border: 2px solid #ff6b5f;
+
+    color: #ff8075;
+
+    font-size: 18px;
+
+    transition: 0.15s;
+}
+
+.logout-button:hover {
+    background: #ff6b5f;
+
+    color: #10130f;
+
+    box-shadow: 4px 4px 0 #050705;
+}
+
+
+/* =========================================
+   STATISTICS
+========================================= */
+
+.stats-panel {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 25px;
+}
+
+.stat-box {
+    background: #171b14;
+
+    border: 2px solid #56664a;
+
+    padding: 18px;
+
+    min-height: 105px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+    box-shadow: 4px 4px 0 #050705;
+}
+
+.stat-box:hover {
+    border-color: #8fbd5a;
+}
+
+.stat-label {
+    color: #7e8b73;
+
+    font-size: 17px;
+
+    letter-spacing: 1px;
+}
+
+.stat-box strong {
+    color: #b7ff65;
+
+    font-family: "Press Start 2P", monospace;
+
+    font-size: 25px;
+}
+
+
+/* =========================================
+   ADD SECTION
+========================================= */
+
+.add-section {
+    background: #171b14;
+
+    border: 2px solid #56664a;
+
+    padding: 22px;
+
+    margin-bottom: 30px;
+
+    box-shadow: 5px 5px 0 #050705;
+}
+
+.section-title {
+    color: #ffcc66;
+
+    font-size: 19px;
+
+    margin-bottom: 15px;
+
+    letter-spacing: 1px;
+}
+
+.todo-add {
+    display: flex;
+
+    gap: 12px;
+}
+
+.todo-add input {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 14px;
+
+    background: #0b0e0a;
+
+    border: 2px solid #56664a;
+
+    color: #d8ffb0;
+
+    font-size: 21px;
+
+    outline: none;
+}
+
+.todo-add input:focus {
+    border-color: #b7ff65;
+
+    box-shadow:
+        0 0 8px rgba(183, 255, 101, 0.2);
+}
+
+.todo-add input::placeholder {
+    color: #53604b;
+}
+
+.todo-add button {
+    padding: 0 22px;
+
+    background: #b7ff65;
+
+    color: #10130f;
+
+    border: 2px solid #d7ff9f;
+
+    font-family: "Press Start 2P", monospace;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+
+    transition: 0.1s;
+}
+
+.todo-add button:hover {
+    background: #d7ff9f;
+}
+
+.todo-add button:active {
+    transform: translate(3px, 3px);
+}
+
+
+/* =========================================
+   TASK SECTION
+========================================= */
+
+.tasks-section {
+    margin-bottom: 30px;
+}
+
+.tasks-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 2px solid #303a2a;
+}
+
+.tasks-heading h2 {
+    margin: 0;
+
+    color: #d8ffb0;
+
+    font-family: "Press Start 2P", monospace;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.tasks-heading span {
+    color: #7e8b73;
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   TODO LIST
+========================================= */
+
+.todo-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+}
+
+.todo-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px 20px;
+
+    background: #171b14;
+
+    border: 2px solid #56664a;
+
+    box-shadow: 5px 5px 0 #050705;
+
+    transition:
+        border-color 0.15s,
+        transform 0.15s;
+}
+
+.todo-item:hover {
+    border-color: #8fbd5a;
+
+    transform: translateX(2px);
+}
+
+.completed-item {
+    opacity: 0.75;
+
+    border-color: #3e4938;
+}
+
+.todo-content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.todo-main {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.check-button {
+    flex-shrink: 0;
+
+    width: 34px;
+
+    height: 34px;
+
+    padding: 0;
+
+    background: #10130f;
+
+    border: 2px solid #56664a;
+
+    color: #8fbd5a;
+
+    font-size: 24px;
+
+    line-height: 1;
+}
+
+.check-button:hover {
+    border-color: #b7ff65;
+
+    color: #b7ff65;
+}
+
+.check-button.checked {
+    border-color: #8fbd5a;
+
+    color: #b7ff65;
+}
+
+.todo-title {
+    margin: 0;
+
+    color: #d8ffb0;
+
+    font-size: 25px;
+
+    word-break: break-word;
+}
+
+.todo-completed {
+    color: #6f7b68;
+
+    text-decoration: line-through;
+}
+
+.todo-content .todo-status {
+    margin-left: 46px;
+
+    margin-top: 4px;
+
+    color: #8fbd5a;
+
+    font-size: 17px;
+}
+
+
+/* =========================================
+   TODO ACTIONS
+========================================= */
+
 .todo-actions {
-  display: flex;
-  gap: 8px;
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    flex-shrink: 0;
 }
 
 .todo-actions button {
-  padding: 7px 11px;
+    padding: 8px 11px;
 
-  background: #10130f;
+    background: #10130f;
 
-  border: 2px solid #56664a;
+    border: 2px solid #56664a;
 
-  color: #d8ffb0;
+    color: #d8ffb0;
 
-  font-size: 18px;
+    font-size: 17px;
+
+    transition: 0.1s;
 }
 
 .todo-actions button:hover {
-  border-color: #b7ff65;
-  color: #b7ff65;
+    border-color: #b7ff65;
+
+    color: #b7ff65;
 }
 
 .todo-actions .delete-button {
-  color: #ff8075;
-  border-color: #74433f;
+    color: #ff8075;
+
+    border-color: #74433f;
 }
 
 .todo-actions .delete-button:hover {
-  background: #ff6b5f;
-  color: #10130f;
+    background: #ff6b5f;
+
+    color: #10130f;
+
+    border-color: #ff6b5f;
 }
 
-/* =========================
+
+/* =========================================
+   EDIT MODE
+========================================= */
+
+.edit-area {
+    flex: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.edit-prefix {
+    color: #ffcc66;
+
+    font-size: 25px;
+}
+
+.edit-input {
+    width: 100%;
+
+    padding: 10px 12px;
+
+    background: #0b0e0a;
+
+    border: 2px solid #b7ff65;
+
+    color: #d8ffb0;
+
+    font-family: "VT323", monospace;
+
+    font-size: 22px;
+
+    outline: none;
+}
+
+
+/* =========================================
+   SYSTEM MESSAGES
+========================================= */
+
+.system-message {
+    padding: 18px 20px;
+
+    background: #171b14;
+
+    border: 2px dashed #56664a;
+
+    color: #8fbd5a;
+
+    font-size: 20px;
+}
+
+.system-message span {
+    color: #ffcc66;
+
+    margin-right: 10px;
+}
+
+.system-message.error {
+    color: #ff8075;
+}
+
+
+/* =========================================
    EMPTY STATE
-========================= */
+========================================= */
 
 .empty-todos {
-  padding: 40px;
+    padding: 55px 25px;
 
-  text-align: center;
+    text-align: center;
 
-  border: 2px dashed #56664a;
+    background: #171b14;
 
-  color: #687461;
+    border: 2px dashed #56664a;
 
-  font-size: 23px;
+    box-shadow: 5px 5px 0 #050705;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.empty-icon {
+    color: #56664a;
 
-@media (max-width: 600px) {
-  .auth-form {
-    padding: 28px 20px;
-  }
+    font-size: 40px;
 
-  .auth-form h2 {
-    font-size: 17px;
-  }
+    margin-bottom: 15px;
+}
 
-  .todo-header {
-    align-items: flex-start;
+.empty-todos h3 {
+    margin: 0 0 15px;
+
+    color: #b7ff65;
+
+    font-family: "Press Start 2P", monospace;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+.empty-todos p {
+    margin: 5px 0;
+
+    color: #687461;
+
+    font-size: 20px;
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.app-footer {
+    display: flex;
+
+    justify-content: space-between;
+
     gap: 15px;
-  }
 
-  .todo-header h1 {
+    padding: 18px 0;
+
+    margin-top: 25px;
+
+    border-top: 2px dashed #56664a;
+
+    color: #56664a;
+
     font-size: 16px;
-  }
 
-  .todo-add {
-    flex-direction: column;
-  }
+    letter-spacing: 1px;
+}
 
-  .todo-add button {
-    padding: 12px;
-  }
 
-  .todo-item {
-    flex-direction: column;
-    align-items: stretch;
-  }
+/* =========================================
+   MOBILE
+========================================= */
 
-  .todo-actions {
-    justify-content: flex-end;
-  }
+@media (max-width: 700px) {
+
+    .todo-page {
+        padding: 20px 15px;
+    }
+
+    .todo-header {
+        align-items: flex-start;
+    }
+
+    .todo-header h1 {
+        font-size: 17px;
+    }
+
+    .logout-button {
+        font-size: 16px;
+
+        padding: 8px 12px;
+    }
+
+    .stats-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .todo-add {
+        flex-direction: column;
+    }
+
+    .todo-add button {
+        padding: 13px;
+    }
+
+    .todo-item {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+    .todo-actions {
+        justify-content: flex-end;
+
+        flex-wrap: wrap;
+    }
+
+    .edit-area {
+        width: 100%;
+    }
+
+    .tasks-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .app-footer {
+        flex-direction: column;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .auth-page {
+        padding: 20px 12px;
+    }
+
+    .auth-form {
+        padding: 28px 20px;
+    }
+
+    .auth-form h2 {
+        font-size: 16px;
+    }
+
+    .todo-header {
+        flex-direction: column;
+    }
+
+    .todo-header .logout-button {
+        align-self: flex-start;
+    }
+
+    .todo-title {
+        font-size: 21px;
+    }
+
+    .todo-actions button {
+        flex: 1;
+    }
 }

@@ -23,11 +23,14 @@ function Todo() {
             setLoading(true);
             setError("");
 
-            const response = await axios.get(API_URL, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await axios.get(
+                API_URL,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
             setTodos(response.data);
 
@@ -183,19 +186,35 @@ function Todo() {
         }
     };
 
+    const completedCount =
+        todos.filter((todo) => todo.completed).length;
+
+    const pendingCount =
+        todos.filter((todo) => !todo.completed).length;
+
     return (
         <div className="todo-page">
 
             <div className="todo-container">
 
-                <div className="todo-header">
+                {/* HEADER */}
+
+                <header className="todo-header">
 
                     <div>
-                        <h1>TODO DASHBOARD</h1>
+
+                        <div className="terminal-label">
+                            &gt; TODO//SYSTEM
+                        </div>
+
+                        <h1>
+                            TASK MANAGER
+                        </h1>
 
                         <p className="todo-status">
-                            &gt; SYSTEM ONLINE
+                            ● SYSTEM ONLINE
                         </p>
+
                     </div>
 
                     <button
@@ -205,164 +224,320 @@ function Todo() {
                         LOGOUT
                     </button>
 
-                </div>
+                </header>
 
-                <form
-                    onSubmit={addTodo}
-                    className="todo-add"
-                >
 
-                    <input
-                        type="text"
-                        placeholder="ENTER NEW TASK..."
-                        value={title}
-                        onChange={(e) =>
-                            setTitle(e.target.value)
-                        }
-                    />
+                {/* STATISTICS */}
 
-                    <button type="submit">
-                        ADD
-                    </button>
+                <section className="stats-panel">
 
-                </form>
+                    <div className="stat-box">
 
-                {loading && (
-                    <p className="loading">
-                        &gt; LOADING TASKS...
-                    </p>
-                )}
+                        <span className="stat-label">
+                            TOTAL
+                        </span>
 
-                {error && (
-                    <p className="error">
-                        [ ERROR ] {error}
-                    </p>
-                )}
+                        <strong>
+                            {todos.length}
+                        </strong>
 
-                {!loading && todos.length === 0 && (
-                    <div className="empty-todos">
-                        &gt; NO TODOS FOUND
-                        <br />
-                        &gt; ADD YOUR FIRST TASK
                     </div>
-                )}
 
-                {!loading && todos.length > 0 && (
-                    <div className="todo-list">
+                    <div className="stat-box">
 
-                        {todos.map((todo) => (
+                        <span className="stat-label">
+                            PENDING
+                        </span>
 
-                            <div
-                                className="todo-item"
-                                key={todo._id}
-                            >
+                        <strong>
+                            {pendingCount}
+                        </strong>
 
-                                {editId === todo._id ? (
+                    </div>
 
-                                    <>
-                                        <div className="todo-content">
+                    <div className="stat-box">
 
-                                            <input
-                                                className="todo-add input"
-                                                value={editTitle}
-                                                onChange={(e) =>
-                                                    setEditTitle(
-                                                        e.target.value
-                                                    )
-                                                }
-                                            />
+                        <span className="stat-label">
+                            COMPLETED
+                        </span>
 
-                                        </div>
+                        <strong>
+                            {completedCount}
+                        </strong>
 
-                                        <div className="todo-actions">
+                    </div>
 
-                                            <button
-                                                onClick={() =>
-                                                    updateTask(
-                                                        todo._id
-                                                    )
-                                                }
-                                            >
-                                                SAVE
-                                            </button>
+                </section>
 
-                                            <button
-                                                onClick={() => {
-                                                    setEditID(null);
-                                                    setEditTitle("");
-                                                }}
-                                            >
-                                                CANCEL
-                                            </button>
 
-                                        </div>
-                                    </>
+                {/* ADD TODO */}
 
-                                ) : (
+                <section className="add-section">
 
-                                    <>
-                                        <div className="todo-content">
+                    <div className="section-title">
+                        &gt; CREATE NEW TASK
+                    </div>
 
-                                            <p
-                                                className={
-                                                    todo.completed
-                                                        ? "todo-title todo-completed"
-                                                        : "todo-title"
-                                                }
-                                            >
-                                                {todo.title}
-                                            </p>
+                    <form
+                        onSubmit={addTodo}
+                        className="todo-add"
+                    >
 
-                                            <div className="todo-status">
+                        <input
+                            type="text"
+                            placeholder="ENTER NEW TASK..."
+                            value={title}
+                            onChange={(e) =>
+                                setTitle(e.target.value)
+                            }
+                        />
 
-                                                {todo.completed
-                                                    ? "[ COMPLETED ]"
-                                                    : "[ PENDING ]"}
+                        <button type="submit">
+                            + ADD TASK
+                        </button>
 
-                                            </div>
+                    </form>
 
-                                        </div>
+                </section>
 
-                                        <div className="todo-actions">
 
-                                            <button
-                                                onClick={() =>
-                                                    toggleTodo(todo)
-                                                }
-                                            >
-                                                {todo.completed
-                                                    ? "UNDO"
-                                                    : "DONE"}
-                                            </button>
+                {/* TASK LIST */}
 
-                                            <button
-                                                onClick={() =>
-                                                    startEdit(todo)
-                                                }
-                                            >
-                                                EDIT
-                                            </button>
+                <section className="tasks-section">
 
-                                            <button
-                                                className="delete-button"
-                                                onClick={() =>
-                                                    deleteTodo(
-                                                        todo._id
-                                                    )
-                                                }
-                                            >
-                                                DELETE
-                                            </button>
+                    <div className="tasks-heading">
 
-                                        </div>
-                                    </>
-                                )}
+                        <h2>
+                            ACTIVE TASK DATABASE
+                        </h2>
+
+                        <span>
+                            {todos.length} RECORD
+                            {todos.length !== 1 ? "S" : ""}
+                        </span>
+
+                    </div>
+
+
+                    {/* LOADING */}
+
+                    {loading && (
+                        <div className="system-message">
+                            <span>&gt;</span>
+                            LOADING TASK DATABASE...
+                        </div>
+                    )}
+
+
+                    {/* ERROR */}
+
+                    {error && (
+                        <div className="error system-message">
+                            <span>[ ERROR ]</span>
+                            {error}
+                        </div>
+                    )}
+
+
+                    {/* EMPTY */}
+
+                    {!loading &&
+                        todos.length === 0 && (
+                            <div className="empty-todos">
+
+                                <div className="empty-icon">
+                                    [ _ ]
+                                </div>
+
+                                <h3>
+                                    TASK DATABASE EMPTY
+                                </h3>
+
+                                <p>
+                                    &gt; NO TASKS FOUND
+                                </p>
+
+                                <p>
+                                    &gt; CREATE YOUR FIRST TASK ABOVE
+                                </p>
 
                             </div>
-                        ))}
+                        )}
 
-                    </div>
-                )}
+
+                    {/* TODO LIST */}
+
+                    {!loading &&
+                        todos.length > 0 && (
+
+                            <div className="todo-list">
+
+                                {todos.map((todo) => (
+
+                                    <div
+                                        className={
+                                            todo.completed
+                                                ? "todo-item completed-item"
+                                                : "todo-item"
+                                        }
+                                        key={todo._id}
+                                    >
+
+                                        {editId === todo._id ? (
+
+                                            <>
+
+                                                <div className="edit-area">
+
+                                                    <span className="edit-prefix">
+                                                        &gt;
+                                                    </span>
+
+                                                    <input
+                                                        className="edit-input"
+                                                        value={editTitle}
+                                                        onChange={(e) =>
+                                                            setEditTitle(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        autoFocus
+                                                    />
+
+                                                </div>
+
+                                                <div className="todo-actions">
+
+                                                    <button
+                                                        onClick={() =>
+                                                            updateTask(
+                                                                todo._id
+                                                            )
+                                                        }
+                                                    >
+                                                        SAVE
+                                                    </button>
+
+                                                    <button
+                                                        onClick={() => {
+                                                            setEditID(null);
+                                                            setEditTitle("");
+                                                        }}
+                                                    >
+                                                        CANCEL
+                                                    </button>
+
+                                                </div>
+
+                                            </>
+
+                                        ) : (
+
+                                            <>
+
+                                                <div className="todo-content">
+
+                                                    <div className="todo-main">
+
+                                                        <button
+                                                            className={
+                                                                todo.completed
+                                                                    ? "check-button checked"
+                                                                    : "check-button"
+                                                            }
+                                                            onClick={() =>
+                                                                toggleTodo(todo)
+                                                            }
+                                                        >
+                                                            {todo.completed
+                                                                ? "✓"
+                                                                : "○"}
+                                                        </button>
+
+                                                        <p
+                                                            className={
+                                                                todo.completed
+                                                                    ? "todo-title todo-completed"
+                                                                    : "todo-title"
+                                                            }
+                                                        >
+                                                            {todo.title}
+                                                        </p>
+
+                                                    </div>
+
+                                                    <div className="todo-status">
+
+                                                        {todo.completed
+                                                            ? "[ COMPLETED ]"
+                                                            : "[ PENDING ]"}
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div className="todo-actions">
+
+                                                    <button
+                                                        onClick={() =>
+                                                            toggleTodo(todo)
+                                                        }
+                                                    >
+                                                        {todo.completed
+                                                            ? "UNDO"
+                                                            : "DONE"}
+                                                    </button>
+
+                                                    <button
+                                                        onClick={() =>
+                                                            startEdit(todo)
+                                                        }
+                                                    >
+                                                        EDIT
+                                                    </button>
+
+                                                    <button
+                                                        className="delete-button"
+                                                        onClick={() =>
+                                                            deleteTodo(
+                                                                todo._id
+                                                            )
+                                                        }
+                                                    >
+                                                        DELETE
+                                                    </button>
+
+                                                </div>
+
+                                            </>
+
+                                        )}
+
+                                    </div>
+
+                                ))}
+
+                            </div>
+
+                        )}
+
+                </section>
+
+
+                {/* FOOTER */}
+
+                <footer className="app-footer">
+
+                    <span>
+                        TODO//SYSTEM v1.0
+                    </span>
+
+                    <span>
+                        STATUS: ONLINE
+                    </span>
+
+                </footer>
 
             </div>
 
