@@ -20,7 +20,7 @@ function Todo(){
         try{
             setLoading(true);
 
-            const response = await axios.get("https://todo-backend-ocq4.onrender.com/api/todos", {headers:{Authorization:`Bearer ${token}`}});
+            const response = await axios.get("https://todo-dashboard-mu9i.onrender.com/api/todos", {headers:{Authorization:`Bearer ${token}`}});
             setTodos(response.data);
         }catch(error){
             alert(error.response?.data?.message || "failed to view a task")
