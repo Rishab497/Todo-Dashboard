@@ -1,101 +1,74 @@
 import axios from "axios";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
-function Login({ onLogin }) {
+
+function Login() {
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [loading, setLoading] = useState("");
+    const [error, setError] = useState("");
 
     const submitData = async (e) => {
         e.preventDefault();
 
-        const data = {
-            email: e.target.email.value,
-            password: e.target.password.value
-        };
+        setError("");
+        setLoading(true);
 
         try {
-
             const response = await axios.post(
                 "https://todo-dashboard-mu9i.onrender.com/api/auth/login",
-                data
+                {
+                    email,
+                    password
+                }
             );
 
-            console.log(response.data);
+            console.log("LOGIN RESPONSE:", response.data);
 
-            if (response.data.token) {
+            // Save token
+            localStorage.setItem("token", response.data.token);
 
-                localStorage.setItem(
-                    "token",
-                    response.data.token
-                );
+            // Save user
+            localStorage.setItem(
+                "user",
+                JSON.stringify(response.data.user)
+            );
 
-                alert("Login successful!");
-
-                onLogin();
-            } else {
-                alert("Login successful, but token was not received.");
-            }
+            // Redirect
+            navigate("/todo");
 
         } catch (error) {
+            console.log("LOGIN ERROR:", error.response?.data);
 
-            console.log(error);
-
-            if (error.response) {
-                alert(
-                    error.response.data.message ||
-                    "Invalid email or password"
-                );
-            } else {
-                alert("Unable to connect to the server.");
-            }
+            setError(
+                error.response?.data?.message || "Login failed"
+            );
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="auth-form">
+        <div clasName="auth-container">
+            <div className="auth-box">
+                <h1> Login Account</h1>
+                <form onSubmit={submitData}>
+                    <input type="email" placeholder="Enter Your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="password" placeholder="Enter Your Password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-            <h2>Welcome Back</h2>
+                    {error && (
+                        <p className="error">{error}</p>
+                    )}
+                    <button type="submit">{loading ? "Logging in" : "Login"}</button>
+                </form>
 
-            <p className="form-subtitle">
-                Login to manage your tasks
-            </p>
-
-            <form onSubmit={submitData}>
-
-                <div className="input-group">
-                    <label>Email</label>
-
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                    />
-                </div>
-
-                <div className="input-group">
-                    <label>Password</label>
-
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        required
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    className="primary-button"
-                >
-                    Login
-                </button>
-
-            </form>
-            <p className="auth-switch">
-                Don't have an account?{" "}
-                <a href="/register">Register</a>
-            </p>
-
+                <p>Dont have an account ? {""} <Link to="/register"> Register </Link></p>
+            </div>
         </div>
-    );
+    )
 }
-
 export default Login;

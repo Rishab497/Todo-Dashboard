@@ -1,105 +1,54 @@
 import axios from "axios";
+import { useState } from "react";
+import {useNavigate, Link} from "react-router-dom";
 
-function Register({ onRegister }) {
 
-    const submitData = async (e) => {
+function Register(){
+    const navigate = useNavigate();
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [loading, setLoading] = useState("");
+    const [error, setError] = useState("");
+
+    const submitData = async(e)=>{
         e.preventDefault();
 
-        const data = {
-            name: e.target.name.value,
-            email: e.target.email.value,
-            password: e.target.password.value
-        };
+        setError("");
+        setLoading(true);
 
-        try {
+        try{
+            await axios.post("https://todo-dashboard-mu9i.onrender.com/api/auth/register",{ name:name, email:email, password:password})
 
-            const response = await axios.post(
-                "https://todo-dashboard-mu9i.onrender.com/api/auth/register",
-                data
-            );
-
-            console.log(response.data);
-
-            alert("Registration successful!");
-
-            if (onRegister) {
-                onRegister();
-            }
-
-        } catch (error) {
-
-            console.log(error);
-
-            if (error.response) {
-                alert(
-                    error.response.data.message ||
-                    "Registration failed"
-                );
-            } else {
-                alert("Unable to connect to the server.");
-            }
+            alert("Registartion Successful");
+            navigate("/login");
+        }catch(error){
+            setError(error.response?.data?.message || "Registeration failed");
+        }finally{
+            setLoading(false);
         }
     };
 
     return (
-        <div className="auth-form">
+        <div clasName="auth-container">
+            <div className ="auth-box">
+                <h1> Create Account</h1>
+                <form onSubmit={submitData}>
+                    <input type="text" placeholder="Enter Your Name" value={name} onChange={(e)=>setName(e.target.value)}/>
+                    <input type="email" placeholder="Enter Your Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    <input type="password" placeholder="Enter Your Password" value={password} onChange={(e)=>setPassword(e.target.value)}/>
 
-            <h2>Create Account</h2>
-
-            <p className="form-subtitle">
-                Register to start managing your tasks
-            </p>
-
-            <form onSubmit={submitData}>
-
-                <div className="input-group">
-                    <label>Name</label>
-
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Enter your name"
-                        required
-                    />
-                </div>
-
-                <div className="input-group">
-                    <label>Email</label>
-
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        required
-                    />
-                </div>
-
-                <div className="input-group">
-                    <label>Password</label>
-
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Create a password"
-                        required
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    className="primary-button"
-                >
-                    Create Account
-                </button>
-
-            </form>
-            <p className="auth-switch">
-                Already have an account?{" "}
-                <a href="/login">Login</a>
-            </p>
-
+                    {error && (
+                        <p className="error">{error}</p>
+                    )}
+                    <button type="submit">{loading ? "registering" : "register"}</button>
+                </form>
+                
+                <p>Already have an account ? {""} <Link to="/login"> Login </Link></p>
+                {/* <a href=""></a> */}
+            </div>
         </div>
-    );
+    )
 }
-
 export default Register;
