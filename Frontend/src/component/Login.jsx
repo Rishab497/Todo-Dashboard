@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
-
 function Login() {
     const navigate = useNavigate();
 
@@ -53,22 +52,76 @@ function Login() {
     };
 
     return (
-        <div clasName="auth-container">
+        <div className="auth-container">
+
             <div className="auth-box">
-                <h1> Login Account</h1>
+
+                <div className="terminal-label">
+                    TODO SYSTEM
+                </div>
+
+                <h1>LOGIN ACCOUNT</h1>
+
+                <p className="auth-subtitle">
+                    &gt; ENTER YOUR CREDENTIALS_
+                </p>
+
                 <form onSubmit={submitData}>
-                    <input type="email" placeholder="Enter Your Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <input type="password" placeholder="Enter Your Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+
+                    <div className="input-group">
+                        <label>EMAIL</label>
+
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
+
+                    <div className="input-group">
+                        <label>PASSWORD</label>
+
+                        <input
+                            type="password"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
+                            required
+                        />
+                    </div>
 
                     {error && (
-                        <p className="error">{error}</p>
+                        <p className="error">
+                            [ ERROR ] {error}
+                        </p>
                     )}
-                    <button type="submit">{loading ? "Logging in" : "Login"}</button>
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading ? "LOGGING IN..." : "LOGIN"}
+                    </button>
+
                 </form>
 
-                <p>Dont have an account ? {""} <Link to="/register"> Register </Link></p>
+                <p className="auth-switch">
+                    DON'T HAVE AN ACCOUNT?{" "}
+                    <Link to="/register">
+                        REGISTER
+                    </Link>
+                </p>
+
             </div>
+
         </div>
-    )
+    );
 }
+
 export default Login;
