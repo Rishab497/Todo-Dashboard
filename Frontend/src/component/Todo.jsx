@@ -188,16 +188,14 @@ function Todo() {
 
             <div className="todo-container">
 
-                {/* HEADER */}
-
                 <div className="todo-header">
 
                     <div>
-                        <div className="terminal-label">
-                            TODO SYSTEM
-                        </div>
-
                         <h1>TODO DASHBOARD</h1>
+
+                        <p className="todo-status">
+                            &gt; SYSTEM ONLINE
+                        </p>
                     </div>
 
                     <button
@@ -208,8 +206,6 @@ function Todo() {
                     </button>
 
                 </div>
-
-                {/* ADD TODO */}
 
                 <form
                     onSubmit={addTodo}
@@ -231,15 +227,11 @@ function Todo() {
 
                 </form>
 
-                {/* LOADING */}
-
                 {loading && (
                     <p className="loading">
                         &gt; LOADING TASKS...
                     </p>
                 )}
-
-                {/* ERROR */}
 
                 {error && (
                     <p className="error">
@@ -247,20 +239,15 @@ function Todo() {
                     </p>
                 )}
 
-                {/* EMPTY */}
-
                 {!loading && todos.length === 0 && (
                     <div className="empty-todos">
-                        &gt; NO TASKS FOUND_
+                        &gt; NO TODOS FOUND
                         <br />
                         &gt; ADD YOUR FIRST TASK
                     </div>
                 )}
 
-                {/* TODO LIST */}
-
                 {!loading && todos.length > 0 && (
-
                     <div className="todo-list">
 
                         {todos.map((todo) => (
@@ -272,14 +259,11 @@ function Todo() {
 
                                 {editId === todo._id ? (
 
-                                    /* EDIT MODE */
-
                                     <>
-
                                         <div className="todo-content">
 
                                             <input
-                                                className="edit-input"
+                                                className="todo-add input"
                                                 value={editTitle}
                                                 onChange={(e) =>
                                                     setEditTitle(
@@ -312,15 +296,11 @@ function Todo() {
                                             </button>
 
                                         </div>
-
                                     </>
 
                                 ) : (
 
-                                    /* NORMAL MODE */
-
                                     <>
-
                                         <div className="todo-content">
 
                                             <p
@@ -375,13 +355,10 @@ function Todo() {
                                             </button>
 
                                         </div>
-
                                     </>
-
                                 )}
 
                             </div>
-
                         ))}
 
                     </div>

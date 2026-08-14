@@ -9,7 +9,7 @@ function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [loading, setLoading] = useState("");
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const submitData = async (e) => {
@@ -37,24 +37,21 @@ function Register() {
                 error.response?.data?.message ||
                 "Registration failed"
             );
+
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="auth-container">
+        <div className="auth-page">
 
-            <div className="auth-box">
+            <div className="auth-form">
 
-                <div className="terminal-label">
-                    TODO SYSTEM
-                </div>
+                <h2>CREATE ACCOUNT</h2>
 
-                <h1>CREATE ACCOUNT</h1>
-
-                <p className="auth-subtitle">
-                    &gt; CREATE NEW USER_
+                <p className="form-subtitle">
+                    &gt; Create a new user_
                 </p>
 
                 <form onSubmit={submitData}>
@@ -109,6 +106,7 @@ function Register() {
 
                     <button
                         type="submit"
+                        className="primary-button"
                         disabled={loading}
                     >
                         {loading

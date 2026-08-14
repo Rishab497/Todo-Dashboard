@@ -8,7 +8,7 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [loading, setLoading] = useState("");
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     const submitData = async (e) => {
@@ -28,16 +28,13 @@ function Login() {
 
             console.log("LOGIN RESPONSE:", response.data);
 
-            // Save token
             localStorage.setItem("token", response.data.token);
 
-            // Save user
             localStorage.setItem(
                 "user",
                 JSON.stringify(response.data.user)
             );
 
-            // Redirect
             navigate("/todo");
 
         } catch (error) {
@@ -46,24 +43,21 @@ function Login() {
             setError(
                 error.response?.data?.message || "Login failed"
             );
+
         } finally {
             setLoading(false);
         }
     };
 
     return (
-        <div className="auth-container">
+        <div className="auth-page">
 
-            <div className="auth-box">
+            <div className="auth-form">
 
-                <div className="terminal-label">
-                    TODO SYSTEM
-                </div>
+                <h2>LOGIN ACCOUNT</h2>
 
-                <h1>LOGIN ACCOUNT</h1>
-
-                <p className="auth-subtitle">
-                    &gt; ENTER YOUR CREDENTIALS_
+                <p className="form-subtitle">
+                    &gt; Welcome back, user_
                 </p>
 
                 <form onSubmit={submitData}>
@@ -104,6 +98,7 @@ function Login() {
 
                     <button
                         type="submit"
+                        className="primary-button"
                         disabled={loading}
                     >
                         {loading ? "LOGGING IN..." : "LOGIN"}
