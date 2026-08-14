@@ -89,6 +89,10 @@ function Login({ onLogin }) {
                 </button>
 
             </form>
+            <p className="auth-switch">
+                Don't have an account?{" "}
+                <a href="/register">Register</a>
+            </p>
 
         </div>
     );

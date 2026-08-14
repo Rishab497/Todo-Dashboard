@@ -93,6 +93,10 @@ function Register({ onRegister }) {
                 </button>
 
             </form>
+            <p className="auth-switch">
+                Already have an account?{" "}
+                <a href="/login">Login</a>
+            </p>
 
         </div>
     );
