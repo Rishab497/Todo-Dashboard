@@ -21,8 +21,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Backend health check
 app.get("/", (req, res) => {
-    res.send("ToDo-Dashboard Backend is running");
+    res.json({
+        message: "ToDo Dashboard Backend is running"
+    });
 });
 
 // Routes
