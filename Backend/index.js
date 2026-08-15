@@ -21,6 +21,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+    res.send("ToDo-Dashboard Backend is running");
+});
+
 // Routes
 app.use("/api/auth", userRouter);
 app.use("/api/todos", todoRouter);
