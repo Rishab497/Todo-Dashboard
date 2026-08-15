@@ -24,7 +24,7 @@ app.use(express.json());
 // Backend health check
 app.get("/", (req, res) => {
     res.json({
-        message: "ToDo Dashboard Backend is running"
+        message: "ToDo-Dashboard Backend is running"
     });
 });
 
