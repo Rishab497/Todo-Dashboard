@@ -18,6 +18,17 @@ A full-stack Todo-Dashboard application that allows users to create, manage, upd
 - Responsive retro-style user interface
 - Persistent task storage using MongoDB
 
+## Screenshots
+
+### Login
+![Login Page](screenshots/login.png)
+
+### Register
+![Register Page](screenshots/register.png)
+
+### Todo Dashboard
+![Todo Dashboard](screenshots/dashboard.png)
+
 ##  Tech Stack
 
 ### Frontend
@@ -61,7 +72,6 @@ Todo-Dashboard/
 │   └── vite.config.js
 │
 └── README.md
-
 ```
 
 ## How It Works
