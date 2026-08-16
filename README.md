@@ -21,13 +21,13 @@ A full-stack Todo-Dashboard application that allows users to create, manage, upd
 ## Screenshots
 
 ### Login
-![Login Page](screenshots/login.png)
+![Login Page](Screenshots/login.png)
 
 ### Register
-![Register Page](screenshots/register.png)
+![Register Page](Screenshots/register.png)
 
 ### Todo Dashboard
-![Todo Dashboard](screenshots/dashboard.png)
+![Todo Dashboard](Screenshots/dashboard.png)
 
 ##  Tech Stack
 
